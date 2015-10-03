@@ -1,11 +1,11 @@
 ﻿/*  This is a WebScraper that is being used to scrape the Weather Data from the NOAA Weather Website.
- * 
+ *
  *  I have designed this to automate the scraping of weather data in different regions from the NOAA Website
- *  
+ *
  *  The Motivation behind the design of this Web-Scraper is to facilitate the understanding of the weather data by doing historical analysis for a specific region e.g. NAPA VALLEY, CA and to do predictive analytics on available data
- *  to help farmers understand the weather models and make informed decisions & precautions to protect their produce based on the weather data. For example, they can use these weather data models to understand how 
+ *  to help farmers understand the weather models and make informed decisions & precautions to protect their produce based on the weather data. For example, they can use these weather data models to understand how
  *  the weather can affect their crop production in a specific season.
- * 
+ *
 */
 
 using System;
@@ -28,7 +28,9 @@ namespace Web_Data_Scraper
                 string WBAN = args[2];
                 string file_name = args[1] + "-" + args[2] + "-" + args[0];*/
 
-                
+                // This is used to pull the Weather Data specific to a location based on Weather Station's WBAN and USAF Number.
+                // In the Below Link WBAN Number is 724955, USAF Number is 93227 and Year is 2015.
+                // Hence, if you are looking for the weather data of 2014 from the below mentioned weather station replace the below link with ""ftp://ftp.ncdc.noaa.gov/pub/data/noaa/2014/724955-93227-2014.gz"
                 string ftp_path = "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/2015/724955-93227-2015.gz";
 
                 string ftp_file_path = ftp_path; //ftp_path + year +"/" + file_name + ".gz";
@@ -56,7 +58,7 @@ namespace Web_Data_Scraper
         /*  This is used rarely. This is used generally when we want to see if any updates are from a weather station */
         static void DownloadTextfile(string ftp_path)
         {
-            // Get the object used to communicate with the server. 
+            // Get the object used to communicate with the server.
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftp_path); // "ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv");
 
              if (request != null)
@@ -111,7 +113,7 @@ namespace Web_Data_Scraper
            // {
                 if (strs[strs.Length - 1].EndsWith(".gz"))
                 {
-                
+
                     // Downloading the .gz File from the FTP Site.
                     new WebClient().DownloadFile(ftp_path, strs[strs.Length - 1]);
 
@@ -127,7 +129,7 @@ namespace Web_Data_Scraper
                 }
 
             //}
-           
+
           //  catch
            // {
                     //Console.WriteLine(((FtpWebResponse)ex.Response).StatusDescription); // This Prints the Error Occured
@@ -177,7 +179,7 @@ namespace Web_Data_Scraper
             Console.WriteLine("Writing to File");
 
             file_write.Write("S.No,USAF(C),WBAN(C),Date(C),Time(C),Latitude(C),Longitude(C),Wind_Dir_Angle(M),Wind_Gust(N/A),Wind_Speed_Rate(M),Solar Radiation(M),Air_Obs_Temp(Centigrade)(M),Atmos_Press_Rel_MSL(A),Relative_Humidity (A),Precipitation(mm)(A)\n");
-            
+
             foreach (string line in lines)
             {
                 file_write.Write(index);
@@ -247,11 +249,11 @@ namespace Web_Data_Scraper
 
                 else
                 {
-                    file_write.Write("NULL"); // Missing 
+                    file_write.Write("NULL"); // Missing
                     file_write.Write(","); // Space Separation
                 }
 
-                // Elevation of a Geo-Physical Point Observation rel. to Mean Sea Level. 
+                // Elevation of a Geo-Physical Point Observation rel. to Mean Sea Level.
                 var elevation_dim = Convert.ToString(line.Substring(46, 5));
 
                 if (elevation_dim != "+9999")
@@ -281,7 +283,7 @@ namespace Web_Data_Scraper
                     file_write.Write(","); // Space Separation
                 }
 
-                // Meteorological Point Observation Quality Control Process Name 
+                // Meteorological Point Observation Quality Control Process Name
                 var quality_control_process = line.Substring(56, 4);
                 //Console.WriteLine(quality_control_process);
                 file_write.Write(Convert.ToString(quality_control_process));
@@ -290,7 +292,7 @@ namespace Web_Data_Scraper
 
                 // ******************** MANDATORY DATA SECTION ************************************
 
-                // Wind Observation Direction Angle 
+                // Wind Observation Direction Angle
                 var wind_dir_angle = Convert.ToString(line.Substring(60, 3)); // Units are Angular Degrees
 
                 if (wind_dir_angle != "999")
@@ -321,7 +323,7 @@ namespace Web_Data_Scraper
                 file_write.Write(",");
 
 
-                // Wind Observation Speed Rate (Meters / Second) and SCALING FACTOR: 10 
+                // Wind Observation Speed Rate (Meters / Second) and SCALING FACTOR: 10
                 var wind_obs_speed_rate = Convert.ToString(line.Substring(65, 4));
 
                 if (wind_obs_speed_rate != "9999")
@@ -362,7 +364,7 @@ namespace Web_Data_Scraper
                     file_write.Write(",");
                 }
 
-                // Sky Condition Observation Ceiling Quality Code. 
+                // Sky Condition Observation Ceiling Quality Code.
                 var sky_obs_ceil_QCode = line.Substring(75, 1);
                 file_write.Write(sky_obs_ceiling_height);
                 file_write.Write(",");
@@ -417,7 +419,7 @@ namespace Web_Data_Scraper
                 file_write.Write(vis_obs_QVar_Code);
                 file_write.Write(",");*/
 
-                // Solar Radiation 
+                // Solar Radiation
                 var solar_radiation = "NULL";
                 file_write.Write(solar_radiation);
                 file_write.Write(",");
@@ -433,7 +435,7 @@ namespace Web_Data_Scraper
                     file_write.Write(sym + Temp);
                     file_write.Write(",");
                 }
-    
+
 
                 else
                 {
@@ -482,7 +484,7 @@ namespace Web_Data_Scraper
                     var Relative_Humidity = (Convert.ToDouble(air_pressure_rel_MSL) / 100) / air_pressure_conv;
 
                     file_write.Write(Relative_Humidity);
-                 
+
                     file_write.Write(",");
                 }
 
