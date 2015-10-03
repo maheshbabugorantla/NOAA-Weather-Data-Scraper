@@ -1,0 +1,6 @@
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\bin\Debug\Web_Data_Scraper.exe.config
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\obj\Debug\Web_Data_Scraper.csprojResolveAssemblyReference.cache
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\bin\Debug\Web_Data_Scraper.exe
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\bin\Debug\Web_Data_Scraper.pdb
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\obj\Debug\Web_Data_Scraper.exe
+C:\Users\mahes_000\Documents\Visual Studio Community\Web_Data_Scraper\Web_Data_Scraper\obj\Debug\Web_Data_Scraper.pdb
